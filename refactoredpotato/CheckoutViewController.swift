@@ -183,6 +183,12 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     }
     
     
+    // MARK: Actions
+    
+    @IBAction func onManageButtonClick(_ sender: UIButton)
+    {
+        self.performSegue(withIdentifier: "manageSegue", sender: self)
+    }
 
     /*
     // MARK: - Navigation
