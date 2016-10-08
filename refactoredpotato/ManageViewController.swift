@@ -35,7 +35,8 @@ class ManageViewController: UIViewController
             switch response.result
             {
                 case .success(let responseData):
-                    let json = JSON(data: responseData);
+                    let json = JSON(responseData);
+                    print(json)
                     return
                 
                 case .failure(let error):
