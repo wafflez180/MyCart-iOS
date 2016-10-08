@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Alamofire
 
 class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UITableViewDelegate
 {
