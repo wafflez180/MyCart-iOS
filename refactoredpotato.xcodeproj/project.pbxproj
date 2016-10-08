@@ -13,6 +13,7 @@
 		14235DC71DA94229001A3681 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14235DC51DA94229001A3681 /* LaunchScreen.storyboard */; };
 		14A3D0FE1DA9618C00F87150 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A3D0FD1DA9618C00F87150 /* CheckoutViewController.swift */; };
 		14A3D1001DA98E5A00F87150 /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A3D0FF1DA98E5A00F87150 /* ManageViewController.swift */; };
+		CA3F90A61DA993A7002FF1A1 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3F90A51DA993A7002FF1A1 /* ProductTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		14235DC81DA94229001A3681 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14A3D0FD1DA9618C00F87150 /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		14A3D0FF1DA98E5A00F87150 /* ManageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageViewController.swift; sourceTree = "<group>"; };
+		CA3F90A51DA993A7002FF1A1 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			children = (
 				14A3D0FD1DA9618C00F87150 /* CheckoutViewController.swift */,
 				14A3D0FF1DA98E5A00F87150 /* ManageViewController.swift */,
+				CA3F90A51DA993A7002FF1A1 /* ProductTableViewCell.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -123,7 +126,7 @@
 				TargetAttributes = {
 					14235DB81DA94229001A3681 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 5ZFL9VGX97;
+						DevelopmentTeam = 72H7NZKH7W;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14A3D0FE1DA9618C00F87150 /* CheckoutViewController.swift in Sources */,
+				CA3F90A61DA993A7002FF1A1 /* ProductTableViewCell.swift in Sources */,
 				14235DBD1DA94229001A3681 /* AppDelegate.swift in Sources */,
 				14A3D1001DA98E5A00F87150 /* ManageViewController.swift in Sources */,
 			);
@@ -289,11 +293,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5ZFL9VGX97;
+				DEVELOPMENT_TEAM = 72H7NZKH7W;
 				INFOPLIST_FILE = refactoredpotato/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.refactoredpotato;
+				PRODUCT_BUNDLE_IDENTIFIER = com.upstatehacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -304,11 +308,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5ZFL9VGX97;
+				DEVELOPMENT_TEAM = 72H7NZKH7W;
 				INFOPLIST_FILE = refactoredpotato/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.refactoredpotato;
+				PRODUCT_BUNDLE_IDENTIFIER = com.upstatehacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

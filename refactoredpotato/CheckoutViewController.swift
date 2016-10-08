@@ -9,8 +9,9 @@
 import UIKit
 import AVFoundation
 
-class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
+class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UITableViewDelegate
 {
+    @IBOutlet weak var itemsTableView: UITableView!
     @IBOutlet weak var previewImageView: UIImageView!
     var session: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
