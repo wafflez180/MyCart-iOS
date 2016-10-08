@@ -106,9 +106,14 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: AVCapture Delegate
-    
+    public override func viewWillLayoutSubviews()
+    {
+        super.viewDidLayoutSubviews()
 
+        previewLayer?.frame = previewImageView.layer.bounds
+    }
+    
+    // MARK: AVCapture Delegate
     
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         
