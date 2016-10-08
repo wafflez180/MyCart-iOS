@@ -74,7 +74,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         previewLayer.bounds = bounds;
         previewLayer.position = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
-        previewLayer.connection.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
+        previewLayer.connection.videoOrientation = AVCaptureVideoOrientation.landscapeRight
         previewImageView.layer.addSublayer(previewLayer)
         previewImageView.layoutIfNeeded()
         
