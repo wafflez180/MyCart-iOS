@@ -11,6 +11,7 @@
 		14235DC21DA94229001A3681 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14235DC01DA94229001A3681 /* Main.storyboard */; };
 		14235DC41DA94229001A3681 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14235DC31DA94229001A3681 /* Assets.xcassets */; };
 		14235DC71DA94229001A3681 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14235DC51DA94229001A3681 /* LaunchScreen.storyboard */; };
+		144121F81DA99FBE00A19F6E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144121F71DA99FBE00A19F6E /* Constants.swift */; };
 		14A3D0FE1DA9618C00F87150 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A3D0FD1DA9618C00F87150 /* CheckoutViewController.swift */; };
 		14A3D1001DA98E5A00F87150 /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A3D0FF1DA98E5A00F87150 /* ManageViewController.swift */; };
 		A9312F455F7E96A341E6A090 /* Pods_refactoredpotato.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDAC1C4C989472EDC26F66B /* Pods_refactoredpotato.framework */; };
@@ -24,6 +25,7 @@
 		14235DC31DA94229001A3681 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14235DC61DA94229001A3681 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14235DC81DA94229001A3681 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		144121F71DA99FBE00A19F6E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		14A3D0FD1DA9618C00F87150 /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		14A3D0FF1DA98E5A00F87150 /* ManageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageViewController.swift; sourceTree = "<group>"; };
 		60A119AE3269B622222064ED /* Pods-refactoredpotato.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-refactoredpotato.debug.xcconfig"; path = "Pods/Target Support Files/Pods-refactoredpotato/Pods-refactoredpotato.debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				14235DBC1DA94229001A3681 /* AppDelegate.swift */,
 				14235DC31DA94229001A3681 /* Assets.xcassets */,
 				14235DC81DA94229001A3681 /* Info.plist */,
+				144121F71DA99FBE00A19F6E /* Constants.swift */,
 			);
 			path = refactoredpotato;
 			sourceTree = "<group>";
@@ -153,7 +156,7 @@
 				TargetAttributes = {
 					14235DB81DA94229001A3681 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 72H7NZKH7W;
+						DevelopmentTeam = 5ZFL9VGX97;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -242,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144121F81DA99FBE00A19F6E /* Constants.swift in Sources */,
 				14A3D0FE1DA9618C00F87150 /* CheckoutViewController.swift in Sources */,
 				CA3F90A61DA993A7002FF1A1 /* ProductTableViewCell.swift in Sources */,
 				14235DBD1DA94229001A3681 /* AppDelegate.swift in Sources */,
@@ -369,11 +373,11 @@
 			baseConfigurationReference = 60A119AE3269B622222064ED /* Pods-refactoredpotato.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 72H7NZKH7W;
+				DEVELOPMENT_TEAM = 5ZFL9VGX97;
 				INFOPLIST_FILE = refactoredpotato/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.upstatehacks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refactoredpotato;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -385,11 +389,11 @@
 			baseConfigurationReference = E5C79FBD73548533B90F1C86 /* Pods-refactoredpotato.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 72H7NZKH7W;
+				DEVELOPMENT_TEAM = 5ZFL9VGX97;
 				INFOPLIST_FILE = refactoredpotato/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.upstatehacks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.refactoredpotato;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -7,20 +7,43 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
-class ManageViewController: UIViewController {
+class ManageViewController: UIViewController
+{
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        retrieveProducts()
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    func retrieveProducts()
+    {
+        Alamofire.request(Constants.API.ADDRESS + Constants.API.CALL_GET_PRODUCTS)
+        .responseJSON()
+        {
+            response in
+            
+            switch response.result
+            {
+                case .success(let responseData):
+                    let json = JSON(data: responseData);
+                    return
+                
+                case .failure(let error):
+                    print("Request failed with error: \(error)")
+                    return
+            }
+        }
+    }
 
     /*
     // MARK: - Navigation
