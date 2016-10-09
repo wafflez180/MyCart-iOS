@@ -16,8 +16,6 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     
     // MARK: Properties
     
-    @IBOutlet weak var productImageViewWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var tableViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var subtotalLabel: UILabel!
     @IBOutlet weak var productsTableView: UITableView!
     @IBOutlet weak var previewImageView: UIImageView!
@@ -33,8 +31,6 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         
         productsTableView.dataSource = self
         productsTableView.delegate = self
-    
-        tableViewWidthConstraint.constant = UIScreen.main.bounds.size.width * 0.60
         
         // Create a session object.
         session = AVCaptureSession()
@@ -382,7 +378,9 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                 cell.productImageView!.image = response.result.value
                 
                 cell.productImageView.contentMode = UIViewContentMode.scaleAspectFit
-                self.productImageViewWidthConstraint.constant = cell.frame.size.width * 0.35
+                var newFrame = cell.productImageView.frame
+                newFrame.size.width = cell.frame.size.width * 0.20
+                cell.productImageView.frame = newFrame
                 //cell.layoutSubviews()
                 cell.setNeedsLayout()
                 cell.updateConstraints()
