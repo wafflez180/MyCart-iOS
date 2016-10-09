@@ -21,6 +21,8 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     var session: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var productsInCart = [Product]()
+        
+    var audioPlayer : AVAudioPlayer?
     
     override func viewDidLoad()
     {
@@ -102,6 +104,9 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         // Begin the capture session.
         
         session.startRunning()
+        
+        // Greet the customer
+        saySomething(message: "Good afternoon, welcome to my shop. Please scan your items.")
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -213,6 +218,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             increaseProductQuantity(scannedProduct: newProduct)
         }else
         {
+            saySomething(message: newProduct.name!)
             productsInCart+=[newProduct]
         }
         DispatchQueue.main.async{
@@ -240,6 +246,26 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             {
                 cell.increaseQuantity()
             }
+        }
+    }
+    
+    func saySomething(message: String)
+    {
+        let parameters : Parameters = ["text" : message, "voice" : "Dawn Happy"]
+        let headers: HTTPHeaders = [
+        "apikey": "5a34fd9150ad4c3d9f75efce01aa493f",
+        "Content-Type": "application/json"
+        ]
+
+        Alamofire.request(Constants.API.CALL_GET_VOICE, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+        .responseData()
+        {
+            response in
+            
+            self.audioPlayer = try! AVAudioPlayer(data: response.data!, fileTypeHint: AVFileTypeWAVE)
+            self.audioPlayer?.prepareToPlay()
+            self.audioPlayer?.volume = 0.5
+            self.audioPlayer?.play()
         }
     }
     

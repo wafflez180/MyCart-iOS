@@ -45,7 +45,7 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func retrieveProducts()
     {
-        let parameters : Parameters = ["text" : "Welcome to my shop. Please scan your items.", "voice" : "Don Happy"]
+        let parameters : Parameters = ["text" : "Welcome to my shop. Please scan your items.", "voice" : "Dawn Happy"]
         let headers: HTTPHeaders = [
         "apikey": "5a34fd9150ad4c3d9f75efce01aa493f",
         "Content-Type": "application/json"
