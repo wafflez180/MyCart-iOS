@@ -36,8 +36,8 @@ class Product
         let newName = json["name"].string
         let newBrand = json["brand"].string
         let newPrice = json["price"].float
-        //let newImageUrl = json["image_url"].string
-        let newImageUrl = "http://i.imgur.com/VamlAl4.png"
+        let newImageUrl = json["image_url"].string
+        //let newImageUrl = "http://i.imgur.com/VamlAl4.png"
         
         self.init(barcode: newBarcode, name: newName, brand: newBrand, price: newPrice, imageUrl : newImageUrl)
     }
