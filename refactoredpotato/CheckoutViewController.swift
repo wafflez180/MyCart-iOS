@@ -107,6 +107,9 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         
         // Greet the customer
         saySomething(message: "Good afternoon, welcome to my shop. Please scan your items.")
+        
+        // TEST check an item
+        checkProduct(barcode: "0078742040370")
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -194,7 +197,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                 case .success(let responseData):
                     let json = JSON(responseData);
 
-                    if let newProduct : Product = Product(json: json["product"])
+                    if let newProduct : Product = Product(json: json)
                     {
                         self.addProductToCart(newProduct: newProduct)
                         
