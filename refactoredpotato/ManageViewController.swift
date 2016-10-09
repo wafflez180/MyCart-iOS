@@ -124,7 +124,14 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let image = response.result.value
             {
                 print("image downloaded: \(image)")
-                cell.imageView!.image = response.result.value
+                cell.productImageView!.image = response.result.value
+                
+                cell.productImageView.contentMode = UIViewContentMode.scaleAspectFit
+                var newFrame = cell.productImageView.frame as CGRect
+                newFrame.size.width = cell.frame.size.width * 0.15
+                cell.productImageView.frame = newFrame
+                cell.layoutSubviews()
+
                 cell.setNeedsLayout()
             }
         }
