@@ -14,5 +14,6 @@ class Constants
     {
         static let ADDRESS = "http://192.81.208.46/"
         static let CALL_GET_PRODUCTS = "products"
+        static let CALL_GET_PRODUCT = "products/"
     }
 }

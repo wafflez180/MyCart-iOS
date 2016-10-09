@@ -36,7 +36,16 @@ class ManageViewController: UIViewController
             {
                 case .success(let responseData):
                     let json = JSON(responseData);
-                    print(json)
+                    let productsJSON = json["products"].array
+                    
+                    for subJSON in productsJSON!
+                    {
+                        if let newProduct : Product = Product(json: subJSON)
+                        {
+                            print("Got product: \(newProduct.name!)")
+                        }
+                    }
+                    
                     return
                 
                 case .failure(let error):

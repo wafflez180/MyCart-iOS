@@ -9,9 +9,13 @@
 import UIKit
 import AVFoundation
 import Alamofire
+import SwiftyJSON
 
 class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UITableViewDelegate
 {
+    
+    // MARK: Properties
+    
     @IBOutlet weak var itemsTableView: UITableView!
     @IBOutlet weak var previewImageView: UIImageView!
     var session: AVCaptureSession!
@@ -28,9 +32,11 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         
         var videoCaptureDevice : AVCaptureDevice?
         let captureDevices = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo)
-        for device in (captureDevices)! {
+        for device in (captureDevices)!
+        {
             //Change position to front for front-facing camera
-            if (device as! AVCaptureDevice).position == AVCaptureDevicePosition.back {
+            if (device as! AVCaptureDevice).position == AVCaptureDevicePosition.back
+            {
                 videoCaptureDevice = device as? AVCaptureDevice
             }
         }
@@ -38,16 +44,22 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         // Create input object.
         let videoInput: AVCaptureDeviceInput?
         
-        do {
+        do
+        {
             videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
-        } catch {
+        }
+        catch
+        {
             return
         }
         
         // Add input to the session.
-        if (session.canAddInput(videoInput)) {
+        if (session.canAddInput(videoInput))
+        {
             session.addInput(videoInput)
-        } else {
+        }
+        else
+        {
             scanningNotPossible()
         }
         
@@ -55,7 +67,8 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         let metadataOutput = AVCaptureMetadataOutput()
         
         // Add output to the session.
-        if (session.canAddOutput(metadataOutput)) {
+        if (session.canAddOutput(metadataOutput))
+        {
             session.addOutput(metadataOutput)
             
             // Send captured data to the delegate object via a serial queue.
@@ -64,7 +77,9 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             // Set barcode type for which to scan: EAN-13.
             metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypePDF417Code]
             
-        } else {
+        }
+        else
+        {
             scanningNotPossible()
         }
         
@@ -95,10 +110,12 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool)
+    {
         super.viewWillDisappear(animated)
         
-        if (session?.isRunning == true) {
+        if (session?.isRunning == true)
+        {
             session.stopRunning()
         }
     }
@@ -117,13 +134,15 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     
     // MARK: AVCapture Delegate
     
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
-        
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!)
+    {
         // Get the first object from the metadataObjects array.
-        if let barcodeData = metadataObjects.first {
+        if let barcodeData = metadataObjects.first
+        {
             // Turn it into machine readable code
             let barcodeReadable = barcodeData as? AVMetadataMachineReadableCodeObject;
-            if let readableCode = barcodeReadable {
+            if let readableCode = barcodeReadable
+            {
                 // Send the barcode as a string to barcodeDetected()
                 barcodeDetected(code: readableCode.stringValue);
             }
@@ -136,9 +155,10 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         }
     }
     
-    // MARK: Custom Funcs
+    // MARK: CheckoutViewController
     
-    func scanningNotPossible() {
+    func scanningNotPossible()
+    {
         // Let the user know that scanning isn't possible with the current device.
         /*let alert = UIAlertController(title: "Can't Scan.", message: "Let's try a device equipped with a camera.", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
@@ -146,44 +166,40 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         session = nil*/
     }
     
-    func barcodeDetected(code: String) {
-        
-        // Let the user know we've found something.
-        let alert = UIAlertController(title: "Found a Barcode!", message: code, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Search", style: UIAlertActionStyle.destructive, handler: { action in
-            
-            // Remove the spaces.
-            let trimmedCode = code.trimmingCharacters(in: .whitespaces)
-            
-            // EAN or UPC?
-            // Check for added "0" at beginning of code.
-            
-            let trimmedCodeString = "\(trimmedCode)"
-            var trimmedCodeNoZero: String
-            
-            if trimmedCodeString.hasPrefix("0") && trimmedCodeString.characters.count > 1 {
-                trimmedCodeNoZero = String(trimmedCodeString.characters.dropFirst())
-
-                // Send the doctored UPC to DataService.searchAPI()
-                
-                //IMPLEMENT BACKEND HERE
-                
-                //DataService.searchAPI(trimmedCodeNoZero)
-            } else {
-                
-                // Send the doctored EAN to DataService.searchAPI()
-                
-                //IMPLEMENT BACKEND HERE
-
-                //DataService.searchAPI(trimmedCodeString)
-            }
-            
-            self.navigationController?.popViewController(animated: true)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
+    func barcodeDetected(code: String)
+    {
+        let trimmedCode = code.trimmingCharacters(in: .whitespaces)
+        checkProduct(barcode: trimmedCode)
     }
     
+    func checkProduct(barcode: String)
+    {
+        Alamofire.request(Constants.API.ADDRESS + Constants.API.CALL_GET_PRODUCT + barcode)
+        .responseJSON()
+        {
+            response in
+            
+            switch response.result
+            {
+                case .success(let responseData):
+                    let json = JSON(responseData);
+
+                    if let newProduct : Product = Product(json: json)
+                    {
+                        print("Got product: \(newProduct.name!)")
+                        
+                        let alert = UIAlertController(title: "Product scanned!", message: newProduct.name!, preferredStyle: UIAlertControllerStyle.alert)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    
+                    return
+                
+                case .failure(let error):
+                    print("Request failed with error: \(error)")
+                    return
+            }
+        }
+    }
     
     // MARK: Actions
     
