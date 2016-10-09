@@ -16,6 +16,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     
     // MARK: Properties
     
+    @IBOutlet weak var tableViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var subtotalLabel: UILabel!
     @IBOutlet weak var productsTableView: UITableView!
     @IBOutlet weak var previewImageView: UIImageView!
@@ -32,6 +33,8 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         productsTableView.dataSource = self
         productsTableView.delegate = self
     
+        tableViewWidthConstraint.constant = UIScreen.main.bounds.size.width * 0.60
+        
         // Create a session object.
         session = AVCaptureSession()
         
@@ -110,15 +113,16 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         //saySomething(message: "Good afternoon, welcome to my shop. Please scan your items.")
         
         // TEST check an item
-        checkProduct(barcode: "0078742040370_FUCK")
+        //checkProduct(barcode: "0078742040370_FUCK")
         
         //Test Product
+        /*
         let testProduct = Product(barcode: "234", name: "bullshit", brand: "test", price: 1.00)
         productsInCart+=[testProduct!]
         DispatchQueue.main.async{
             self.productsTableView.reloadData()
         }
-        
+        */
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(changedProductQuantity),
@@ -176,9 +180,6 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                 barcodeDetected(code: readableCode.stringValue);
             }
             
-            // Vibrate the device to give the user some feedback.
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            
             // Avoid a very buzzy device.
             //Removed
             //session.stopRunning()
@@ -215,7 +216,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         .responseJSON()
         {
             response in
-            debugPrint(response)
+            //debugPrint(response)
             
             self.isCheckingProduct = false
             
@@ -233,6 +234,9 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                     if let newProduct : Product = Product(json: json)
                     {
                         AudioServicesPlaySystemSound(1206)
+                        
+                        // Vibrate the device to give the user some feedback.
+                        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                         
                         self.addProductToCart(newProduct: newProduct)
                         
@@ -320,10 +324,20 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         {
             response in
             
-            self.audioPlayer = try! AVAudioPlayer(data: response.data!, fileTypeHint: AVFileTypeWAVE)
-            self.audioPlayer?.prepareToPlay()
-            self.audioPlayer?.volume = 0.5
-            self.audioPlayer?.play()
+            switch response.result
+            {
+                case .success(let responseData):
+                    self.audioPlayer = try? AVAudioPlayer(data: responseData, fileTypeHint: AVFileTypeWAVE)
+                    self.audioPlayer?.prepareToPlay()
+                    self.audioPlayer?.volume = 0.5
+                    self.audioPlayer?.play()
+                    
+                    return
+                
+                case .failure(let error):
+                    print("Request failed with error: \(error)")
+                    return
+            }
         }
     }*/
     
@@ -344,11 +358,25 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "product", for: indexPath) as! ProductTableViewCell
-        cell.setLabels(newProduct: productsInCart[indexPath.row])
+        let product = productsInCart[indexPath.row]
+        cell.setLabels(newProduct: product)
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.layer.cornerRadius = 25
         
         tableView.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.96, alpha:1.0)
+        
+        // Download the image
+        Alamofire.request(product.imageUrl!).responseImage
+        {
+            response in
+            
+            if let image = response.result.value
+            {
+                print("image downloaded: \(image)")
+                cell.imageView!.image = response.result.value
+                cell.setNeedsLayout()
+            }
+        }
         
         return cell
     }

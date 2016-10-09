@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class ManageProductTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!

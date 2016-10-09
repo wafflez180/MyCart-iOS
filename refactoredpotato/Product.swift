@@ -16,16 +16,18 @@ class Product
     var brand : String?
     var price : Float?
     var quantity : Int?
+    var imageUrl : String?
 
-    init?(barcode : String?, name : String?, brand : String?, price : Float?)
+    init?(barcode : String?, name : String?, brand : String?, price : Float?, imageUrl : String?)
     {
         self.barcode = barcode
         self.name = name
         self.brand = brand
         self.price = price
         self.quantity = 1
+        self.imageUrl = imageUrl
         
-        print("Created Product \(name!), price \(price!)x")
+        print("Created Product \(name!), price \(price!)")
     }
     
     convenience init?(json : JSON)
@@ -34,7 +36,9 @@ class Product
         let newName = json["name"].string
         let newBrand = json["brand"].string
         let newPrice = json["price"].float
+        //let newImageUrl = json["image_url"].string
+        let newImageUrl = "http://i.imgur.com/VamlAl4.png"
         
-        self.init(barcode: newBarcode, name: newName, brand: newBrand, price: newPrice)
+        self.init(barcode: newBarcode, name: newName, brand: newBrand, price: newPrice, imageUrl : newImageUrl)
     }
 }

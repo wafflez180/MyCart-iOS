@@ -60,7 +60,7 @@
                                             <frame key="frameInset" width="500" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7eH-UD-az6">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7eH-UD-az6">
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="7eH-UD-az6" secondAttribute="height" multiplier="1:1" id="t2w-pH-ga8"/>
                                                     </constraints>
@@ -177,7 +177,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtotal" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="jS8-Da-ra4">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtotal" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="jS8-Da-ra4">
                                         <constraints>
                                             <constraint firstAttribute="width" constant="225" id="oyL-uU-mWP"/>
                                         </constraints>
@@ -226,6 +226,7 @@
                         <outlet property="previewImageView" destination="Ehg-UH-Rq0" id="ucD-8H-Eev"/>
                         <outlet property="productsTableView" destination="6gO-7D-OrY" id="Sk2-i5-Whz"/>
                         <outlet property="subtotalLabel" destination="jS8-Da-ra4" id="eic-gh-yL9"/>
+                        <outlet property="tableViewWidthConstraint" destination="xs8-wu-ni5" id="cCv-Ry-foY"/>
                         <segue destination="eBa-Fv-YJx" kind="show" identifier="manageSegue" id="TJv-Ts-yul"/>
                     </connections>
                 </viewController>
@@ -529,7 +530,7 @@
                                             <frame key="frameInset" width="374" height="149"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UHD-5F-sqB">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UHD-5F-sqB">
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="UHD-5F-sqB" secondAttribute="height" multiplier="1:1" id="IYK-3i-LrF"/>
                                                     </constraints>

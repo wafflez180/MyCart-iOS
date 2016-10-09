@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 import AVFoundation
 
@@ -27,6 +28,8 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var productsInStock = [Product]()
     
+    let downloader = ImageDownloader()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -39,11 +42,13 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         productsTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         //Test Product
+        /*
         let testProduct = Product(barcode: "234", name: "bullshit", brand: "test", price: 1.00)
         productsInStock+=[testProduct!]
         DispatchQueue.main.async{
             self.productsTableView.reloadData()
         }
+        */
     }
 
     override func didReceiveMemoryWarning()
@@ -57,7 +62,7 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         .responseJSON()
         {
             response in
-            debugPrint(response)
+            //debugPrint(response)
             switch response.result
             {
                 case .success(let responseData):
@@ -108,7 +113,22 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "manageProductCell", for: indexPath) as! ManageProductTableViewCell
-        cell.setLabels(newProduct: productsInStock[indexPath.row])
+        let product = productsInStock[indexPath.row]
+        cell.setLabels(newProduct: product)
+
+        // Download the image
+        Alamofire.request(product.imageUrl!).responseImage
+        {
+            response in
+            
+            if let image = response.result.value
+            {
+                print("image downloaded: \(image)")
+                cell.imageView!.image = response.result.value
+                cell.setNeedsLayout()
+            }
+        }
+
         cell.layer.cornerRadius = 20
         tableView.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.96, alpha:1.0)
 
