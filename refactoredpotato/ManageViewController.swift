@@ -107,43 +107,38 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if indexPath.row == 0
         {
-            cell.setSelected(true, animated: true)
+            tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
         }
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! ManageProductTableViewCell
         
-        cell.nameLabel.tintColor = UIColor.white
-        cell.brandLabel.tintColor = UIColor(red:0.94, green:0.94, blue:0.96, alpha:1.0)
+        cell.nameLabel.textColor = UIColor.white
+        cell.brandLabel.textColor = UIColor(red:0.94, green:0.94, blue:0.96, alpha:1.0)
         cell.backgroundColor = UIColor(red:0.18, green:0.24, blue:0.31, alpha:1.0)
+        cell.layer.cornerRadius = 0
         
         print(cell.nameLabel.text)
-        
-        var extensionFrame = cell.frame
-        extensionFrame.origin.x=cell.frame.size.width + cell.frame.origin.x
-        let cellExtension = UIView(frame: extensionFrame)
-        cellExtension.backgroundColor = UIColor(red:0.18, green:0.24, blue:0.31, alpha:1.0)
-        cell.addSubview(cellExtension)
     }
     
-    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+    // if tableView is set in attribute inspector with selection to multiple Selection it should work.
+    
+    // Just set it back in deselect
+    
+    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
         let cell = tableView.cellForRow(at: indexPath) as! ManageProductTableViewCell
         
-        cell.nameLabel.tintColor = UIColor(red:0.01, green:0.01, blue:0.01, alpha:1.0)
-        cell.brandLabel.tintColor = UIColor(red:0.56, green:0.56, blue:0.58, alpha:1.0)
+        cell.nameLabel.textColor = UIColor(red:0.01, green:0.01, blue:0.01, alpha:1.0)
+        cell.brandLabel.textColor = UIColor(red:0.56, green:0.56, blue:0.58, alpha:1.0)
         cell.backgroundColor = UIColor.white
-        
-        for subView in cell.subviews
-        {
-            if subView.frame.origin.x == (cell.frame.size.width + cell.frame.origin.x)
-            {
-                subView.removeFromSuperview()
-            }
-        }
+        cell.layer.cornerRadius = 20
+
+        return indexPath
     }
+    
     /*
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! ManageProductTableViewCell
