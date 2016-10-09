@@ -21,7 +21,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     var session: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var productsInCart = [Product]()
-        
+    var isCheckingProduct = false
     var audioPlayer : AVAudioPlayer?
     
     override func viewDidLoad()
@@ -181,17 +181,27 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     
     func barcodeDetected(code: String)
     {
+        if (isCheckingProduct)
+        {
+            return
+        }
+        
         let trimmedCode = code.trimmingCharacters(in: .whitespaces)
         checkProduct(barcode: trimmedCode)
     }
     
     func checkProduct(barcode: String)
     {
+        isCheckingProduct = true
+    
         Alamofire.request(Constants.API.ADDRESS + Constants.API.CALL_GET_PRODUCT + barcode)
         .responseJSON()
         {
             response in
             debugPrint(response)
+            
+            self.isCheckingProduct = false
+            
             switch response.result
             {
                 case .success(let responseData):
@@ -199,6 +209,8 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
 
                     if let newProduct : Product = Product(json: json)
                     {
+                        AudioServicesPlaySystemSound(1206)
+                        
                         self.addProductToCart(newProduct: newProduct)
                         
                         //let alert = UIAlertController(title: "Product scanned!", message: newProduct.name!, preferredStyle: UIAlertControllerStyle.alert)
