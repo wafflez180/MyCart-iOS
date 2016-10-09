@@ -27,8 +27,6 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var productsInStock = [Product]()
     
-    var audioPlayer : AVAudioPlayer?
-
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -36,6 +34,16 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         mainTopInfoBarHeightConstraint.constant = UIScreen.main.bounds.size.height * 0.30
         retrieveProducts()
         
+        productsTableView.delegate = self
+        productsTableView.dataSource = self
+        productsTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        
+        //Test Product
+        let testProduct = Product(id: 12, barcode: "234", name: "bullshit", brand: "test", price: 1.00)
+        productsInStock+=[testProduct!]
+        DispatchQueue.main.async{
+            self.productsTableView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning()
@@ -45,22 +53,6 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func retrieveProducts()
     {
-        let parameters : Parameters = ["text" : "Welcome to my shop. Please scan your items.", "voice" : "Don Happy"]
-        let headers: HTTPHeaders = [
-        "apikey": "5a34fd9150ad4c3d9f75efce01aa493f",
-        "Content-Type": "application/json"
-        ]
-
-        Alamofire.request(Constants.API.CALL_GET_VOICE, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-        .responseData()
-        {
-            response in
-            
-            self.audioPlayer = try! AVAudioPlayer(data: response.data!, fileTypeHint: AVFileTypeWAVE)
-            self.audioPlayer?.prepareToPlay()
-            self.audioPlayer?.volume = 0.5
-            self.audioPlayer?.play()
-        }
     
         Alamofire.request(Constants.API.ADDRESS + Constants.API.CALL_GET_PRODUCTS)
         .responseJSON()
@@ -82,6 +74,10 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         }
                     }
                     
+                    DispatchQueue.main.async{
+                        self.productsTableView.reloadData()
+                    }
+                    
                     return
                 
                 case .failure(let error):
@@ -97,13 +93,17 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return 1
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UIScreen.main.bounds.size.height * 0.20
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return productsInStock.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "product", for: indexPath) as! ManageProductTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "manageProductCell", for: indexPath) as! ManageProductTableViewCell
         cell.setLabels(newProduct: productsInStock[indexPath.row])
         
         return cell

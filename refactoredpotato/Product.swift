@@ -27,7 +27,7 @@ class Product
         self.price = price
         self.quantity = 1
         
-        print("Created Product \(name!), price \(price!)")
+        print("Created Product \(name!), price \(price!)x")
     }
     
     convenience init?(json : JSON)
