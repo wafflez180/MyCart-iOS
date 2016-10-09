@@ -39,7 +39,7 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         productsTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         //Test Product
-        let testProduct = Product(id: 12, barcode: "234", name: "bullshit", brand: "test", price: 1.00)
+        let testProduct = Product(barcode: "234", name: "bullshit", brand: "test", price: 1.00)
         productsInStock+=[testProduct!]
         DispatchQueue.main.async{
             self.productsTableView.reloadData()
@@ -53,7 +53,6 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func retrieveProducts()
     {
-    
         Alamofire.request(Constants.API.ADDRESS + Constants.API.CALL_GET_PRODUCTS)
         .responseJSON()
         {
@@ -106,9 +105,62 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "manageProductCell", for: indexPath) as! ManageProductTableViewCell
         cell.setLabels(newProduct: productsInStock[indexPath.row])
         
+        if indexPath.row == 0
+        {
+            cell.setSelected(true, animated: true)
+        }
+        
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! ManageProductTableViewCell
+        
+        cell.nameLabel.tintColor = UIColor.white
+        cell.brandLabel.tintColor = UIColor(red:0.94, green:0.94, blue:0.96, alpha:1.0)
+        cell.backgroundColor = UIColor(red:0.18, green:0.24, blue:0.31, alpha:1.0)
+        
+        print(cell.nameLabel.text)
+        
+        var extensionFrame = cell.frame
+        extensionFrame.origin.x=cell.frame.size.width + cell.frame.origin.x
+        let cellExtension = UIView(frame: extensionFrame)
+        cellExtension.backgroundColor = UIColor(red:0.18, green:0.24, blue:0.31, alpha:1.0)
+        cell.addSubview(cellExtension)
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! ManageProductTableViewCell
+        
+        cell.nameLabel.tintColor = UIColor(red:0.01, green:0.01, blue:0.01, alpha:1.0)
+        cell.brandLabel.tintColor = UIColor(red:0.56, green:0.56, blue:0.58, alpha:1.0)
+        cell.backgroundColor = UIColor.white
+        
+        for subView in cell.subviews
+        {
+            if subView.frame.origin.x == (cell.frame.size.width + cell.frame.origin.x)
+            {
+                subView.removeFromSuperview()
+            }
+        }
+    }
+    /*
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! ManageProductTableViewCell
+        
+        cell.nameLabel.tintColor = UIColor.white
+        cell.brandLabel.tintColor = UIColor(red:0.94, green:0.94, blue:0.96, alpha:1.0)
+        cell.backgroundColor = UIColor(red:0.18, green:0.24, blue:0.31, alpha:1.0)
+        
+        print(cell.nameLabel.text)
+        
+        var extensionFrame = cell.frame
+        extensionFrame.origin.x=cell.frame.size.width + cell.frame.origin.x
+        let cellExtension = UIView(frame: extensionFrame)
+        cellExtension.backgroundColor = UIColor(red:0.18, green:0.24, blue:0.31, alpha:1.0)
+        cell.addSubview(cellExtension)
+    }*/
+
     /*
     // MARK: - Navigation
 

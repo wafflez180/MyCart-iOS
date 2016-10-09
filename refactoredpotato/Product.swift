@@ -11,16 +11,14 @@ import SwiftyJSON
 
 class Product
 {
-    var id : Int?
     var barcode : String?
     var name : String?
     var brand : String?
     var price : Float?
     var quantity : Int?
 
-    init?(id : Int?, barcode : String?, name : String?, brand : String?, price : Float?)
+    init?(barcode : String?, name : String?, brand : String?, price : Float?)
     {
-        self.id = id
         self.barcode = barcode
         self.name = name
         self.brand = brand
@@ -32,12 +30,11 @@ class Product
     
     convenience init?(json : JSON)
     {
-        let newId = json["id"].int
         let newBarcode = json["barcode"].string
         let newName = json["name"].string
         let newBrand = json["brand"].string
         let newPrice = json["price"].float
         
-        self.init(id: newId, barcode: newBarcode, name: newName, brand: newBrand, price: newPrice)
+        self.init(barcode: newBarcode, name: newName, brand: newBrand, price: newPrice)
     }
 }
