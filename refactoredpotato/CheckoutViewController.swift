@@ -33,6 +33,8 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         productsTableView.dataSource = self
         productsTableView.delegate = self
         
+        tableViewWidthConstraint.constant = UIScreen.main.bounds.size.height * 0.60
+
         // Create a session object.
         session = AVCaptureSession()
         
