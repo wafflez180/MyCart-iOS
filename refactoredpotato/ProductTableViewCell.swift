@@ -35,17 +35,36 @@ class ProductTableViewCell: UITableViewCell {
         product = newProduct
         
         nameLabel.text = product?.name!
-        brandLabel.text = product?.brand!
-        quantityLabel.text = "1 x "
-        priceLabel.text = String(describing: product?.price!)
+        brandLabel.text = "By \(product!.brand!)"
+        quantityLabel.text = "\(product!.quantity!) x "
+        let price = (product?.price!)! * Float((product?.quantity!)!)
+        priceLabel.text = "$" + String(format: "%.2f", price)
+    }
+    
+    func increaseQuantity(){
+        product!.quantity!+=1
+        quantityLabel.text = "\(product!.quantity!) x "
+        let price = (product?.price!)! * Float((product!.quantity!))
+        priceLabel.text = "$" + String(format: "%.2f", price)
+    }
+    
+    func decreaseQuantity(){
+        product!.quantity!-=1
+        quantityLabel.text = "\(product!.quantity!) x "
+        let price = (product?.price!)! * Float((product!.quantity!))
+        priceLabel.text = "$" + String(format: "%.2f", price)
     }
     
     // MARK: Actions
     
-    @IBAction func onDecreaseButtonClick(_ sender: UIButton) {
+    @IBAction func onDecreaseButtonClick(_ sender: UIButton)
+    {
+        decreaseQuantity()
     }
     
-    @IBAction func onIncreaseButtonClick(_ sender: UIButton) {
+    @IBAction func onIncreaseButtonClick(_ sender: UIButton)
+    {
+        increaseQuantity()
     }
 
 }

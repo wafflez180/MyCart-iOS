@@ -208,9 +208,38 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     
     func addProductToCart(newProduct: Product)
     {
-        productsInCart+=[newProduct]
+        if productIsInCart(scannedProduct: newProduct)
+        {
+            increaseProductQuantity(scannedProduct: newProduct)
+        }else
+        {
+            productsInCart+=[newProduct]
+        }
         DispatchQueue.main.async{
             self.productsTableView.reloadData()
+        }
+    }
+    
+    func productIsInCart(scannedProduct: Product) -> Bool
+    {
+        for product in productsInCart
+        {
+            if product.barcode == scannedProduct.barcode
+            {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func increaseProductQuantity(scannedProduct: Product){
+        for productCell in productsTableView.visibleCells
+        {
+            let cell = productCell as! ProductTableViewCell
+            if scannedProduct.barcode == cell.product?.barcode
+            {
+                cell.increaseQuantity()
+            }
         }
     }
     
@@ -226,7 +255,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ProductTableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "product", for: indexPath) as! ProductTableViewCell
         cell.setLabels(newProduct: productsInCart[indexPath.row])
         
         return cell

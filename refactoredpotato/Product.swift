@@ -16,6 +16,7 @@ class Product
     var name : String?
     var brand : String?
     var price : Float?
+    var quantity : Int?
 
     init?(id : Int?, barcode : String?, name : String?, brand : String?, price : Float?)
     {
@@ -24,6 +25,7 @@ class Product
         self.name = name
         self.brand = brand
         self.price = price
+        self.quantity = 1
         
         print("Created Product \(name!), price \(price!)")
     }
