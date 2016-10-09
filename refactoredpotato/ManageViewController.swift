@@ -62,14 +62,12 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         .responseJSON()
         {
             response in
-            //debugPrint(response)
+            debugPrint(response)
             switch response.result
             {
                 case .success(let responseData):
-                    let json = JSON(responseData);
-                    let productsJSON = json["products"].array
-                    
-                    for subJSON in productsJSON!
+                    let json = JSON(responseData).array;
+                    for subJSON in json!
                     {
                         if let newProduct : Product = Product(json: subJSON)
                         {
