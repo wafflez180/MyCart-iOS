@@ -24,6 +24,8 @@ class Product
         self.name = name
         self.brand = brand
         self.price = price
+        
+        print("Created Product \(name!), price \(price!)")
     }
     
     convenience init?(json : JSON)

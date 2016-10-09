@@ -11,19 +11,23 @@ import AVFoundation
 import Alamofire
 import SwiftyJSON
 
-class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UITableViewDelegate
+class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, UITableViewDelegate, UITableViewDataSource
 {
     
     // MARK: Properties
     
-    @IBOutlet weak var itemsTableView: UITableView!
+    @IBOutlet weak var productsTableView: UITableView!
     @IBOutlet weak var previewImageView: UIImageView!
     var session: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
+    var productsInCart = [Product]()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        productsTableView.dataSource = self
+        productsTableView.delegate = self
     
         // Create a session object.
         session = AVCaptureSession()
@@ -151,7 +155,8 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             
             // Avoid a very buzzy device.
-            session.stopRunning()
+            //Removed
+            //session.stopRunning()
         }
     }
     
@@ -184,12 +189,12 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                 case .success(let responseData):
                     let json = JSON(responseData);
 
-                    if let newProduct : Product = Product(json: json)
+                    if let newProduct : Product = Product(json: json["product"])
                     {
-                        print("Got product: \(newProduct.name!)")
+                        self.addProductToCart(newProduct: newProduct)
                         
-                        let alert = UIAlertController(title: "Product scanned!", message: newProduct.name!, preferredStyle: UIAlertControllerStyle.alert)
-                        self.present(alert, animated: true, completion: nil)
+                        //let alert = UIAlertController(title: "Product scanned!", message: newProduct.name!, preferredStyle: UIAlertControllerStyle.alert)
+                        //self.present(alert, animated: true, completion: nil)
                     }
                     
                     return
@@ -199,6 +204,32 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                     return
             }
         }
+    }
+    
+    func addProductToCart(newProduct: Product)
+    {
+        productsInCart+=[newProduct]
+        DispatchQueue.main.async{
+            self.productsTableView.reloadData()
+        }
+    }
+    
+    // MARK: TableView Delegate
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return productsInCart.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = ProductTableViewCell()
+        cell.setLabels(newProduct: productsInCart[indexPath.row])
+        
+        return cell
     }
     
     // MARK: Actions
