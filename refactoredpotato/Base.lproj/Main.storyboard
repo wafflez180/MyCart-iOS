@@ -130,12 +130,13 @@
                                                 <constraint firstItem="1TG-Id-WD9" firstAttribute="leading" secondItem="WE2-So-0vT" secondAttribute="trailing" constant="10" id="fIC-2L-wIi"/>
                                                 <constraint firstItem="zA5-iu-8CH" firstAttribute="leading" secondItem="7eH-UD-az6" secondAttribute="trailing" constant="10" id="fOv-GG-8Tm"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="1TG-Id-WD9" secondAttribute="bottom" constant="10" id="iZ5-14-ZfQ"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="1TG-Id-WD9" secondAttribute="trailing" constant="20" id="n8i-Wm-CVN"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1TG-Id-WD9" secondAttribute="trailing" constant="10" id="n8i-Wm-CVN"/>
                                                 <constraint firstItem="7Sh-oJ-fs4" firstAttribute="leading" secondItem="FF3-PU-wnZ" secondAttribute="trailing" constant="30" id="pyQ-xH-74n"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ewm-z7-ka6" secondAttribute="trailing" constant="20" id="sXU-bD-Jic"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ewm-z7-ka6" secondAttribute="trailing" constant="10" id="sXU-bD-Jic"/>
                                                 <constraint firstAttribute="bottom" secondItem="7eH-UD-az6" secondAttribute="bottom" constant="10" id="wua-vk-Kdn"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="40"/>
@@ -151,17 +152,69 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vo4-Zs-RI8" userLabel="CheckoutView">
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CheckoutButton" highlightedImage="CheckoutButton" translatesAutoresizingMaskIntoConstraints="NO" id="S1S-UE-pj5">
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="S1S-UE-pj5" secondAttribute="height" multiplier="267:65" id="VeG-ge-1an"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Card" highlightedImage="Card" translatesAutoresizingMaskIntoConstraints="NO" id="s5u-Ph-Rfr">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="Pfl-IX-XrA"/>
+                                            <constraint firstAttribute="height" constant="44.100000000000001" id="dkC-qH-AfC"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fd-jA-jD1">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="bf1-Y1-mXc"/>
+                                            <constraint firstAttribute="width" constant="5" id="xgi-Q0-Jr4"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtotal" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="jS8-Da-ra4">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="225" id="oyL-uU-mWP"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="1fd-jA-jD1" firstAttribute="leading" secondItem="jS8-Da-ra4" secondAttribute="trailing" constant="20" id="GOy-S8-23W"/>
+                                    <constraint firstAttribute="height" constant="100" id="IvE-aR-VMF"/>
+                                    <constraint firstItem="s5u-Ph-Rfr" firstAttribute="leading" secondItem="1fd-jA-jD1" secondAttribute="trailing" constant="10" id="Kcy-ac-3IZ"/>
+                                    <constraint firstItem="1fd-jA-jD1" firstAttribute="centerY" secondItem="vo4-Zs-RI8" secondAttribute="centerY" id="QVx-zh-cD8"/>
+                                    <constraint firstItem="s5u-Ph-Rfr" firstAttribute="top" secondItem="vo4-Zs-RI8" secondAttribute="top" constant="25" id="RTM-K7-gRh"/>
+                                    <constraint firstAttribute="bottom" secondItem="S1S-UE-pj5" secondAttribute="bottom" id="cCK-cY-R5d"/>
+                                    <constraint firstAttribute="trailing" secondItem="s5u-Ph-Rfr" secondAttribute="trailing" constant="35" id="f8d-nS-VCc"/>
+                                    <constraint firstAttribute="bottom" secondItem="jS8-Da-ra4" secondAttribute="bottom" constant="25" id="gPG-6z-INk"/>
+                                    <constraint firstItem="jS8-Da-ra4" firstAttribute="top" secondItem="vo4-Zs-RI8" secondAttribute="top" constant="25" id="ltU-UH-LQl"/>
+                                    <constraint firstAttribute="trailing" secondItem="S1S-UE-pj5" secondAttribute="trailing" id="sMm-k9-aKF"/>
+                                    <constraint firstItem="S1S-UE-pj5" firstAttribute="top" secondItem="vo4-Zs-RI8" secondAttribute="top" id="yHk-N1-iWH"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6gO-7D-OrY" firstAttribute="leading" secondItem="t65-I9-E4b" secondAttribute="trailing" constant="15" id="38E-cp-VBI"/>
                             <constraint firstItem="dXs-Fh-l7m" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="46p-Gj-a9A"/>
                             <constraint firstItem="t65-I9-E4b" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="15" id="6Ue-5n-ihf"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vo4-Zs-RI8" secondAttribute="bottom" id="9uy-hC-Pxn"/>
                             <constraint firstAttribute="trailing" secondItem="6gO-7D-OrY" secondAttribute="trailing" id="CGi-wO-Kjx"/>
                             <constraint firstItem="t65-I9-E4b" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="15" id="N3K-MC-JLb"/>
                             <constraint firstItem="6gO-7D-OrY" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="RNB-3t-gV7"/>
+                            <constraint firstItem="vo4-Zs-RI8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="jsA-Nr-LE3"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6gO-7D-OrY" secondAttribute="bottom" id="xiF-tj-Gdy"/>
                             <constraint firstItem="dXs-Fh-l7m" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="xuL-lI-eNq"/>
+                            <constraint firstAttribute="trailing" secondItem="vo4-Zs-RI8" secondAttribute="trailing" id="ytr-32-MuR"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
@@ -172,6 +225,7 @@
                     <connections>
                         <outlet property="previewImageView" destination="Ehg-UH-Rq0" id="ucD-8H-Eev"/>
                         <outlet property="productsTableView" destination="6gO-7D-OrY" id="Sk2-i5-Whz"/>
+                        <outlet property="subtotalLabel" destination="jS8-Da-ra4" id="eic-gh-yL9"/>
                         <segue destination="eBa-Fv-YJx" kind="show" identifier="manageSegue" id="TJv-Ts-yul"/>
                     </connections>
                 </viewController>
@@ -567,6 +621,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Card" width="70" height="46"/>
+        <image name="CheckoutButton" width="534" height="130"/>
         <image name="IncreaseButton" width="40" height="40"/>
         <image name="ReduceButton" width="40" height="40"/>
     </resources>

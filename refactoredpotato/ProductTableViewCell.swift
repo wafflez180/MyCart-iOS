@@ -66,11 +66,13 @@ class ProductTableViewCell: UITableViewCell {
     @IBAction func onDecreaseButtonClick(_ sender: UIButton)
     {
         decreaseQuantity()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ChangedQuantity"), object: nil)
     }
     
     @IBAction func onIncreaseButtonClick(_ sender: UIButton)
     {
         increaseQuantity()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ChangedQuantity"), object: nil)
     }
 
 }
