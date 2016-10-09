@@ -16,6 +16,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     
     // MARK: Properties
     
+    @IBOutlet weak var productImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var subtotalLabel: UILabel!
     @IBOutlet weak var productsTableView: UITableView!
@@ -378,8 +379,13 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             if let image = response.result.value
             {
                 print("image downloaded: \(image)")
-                cell.imageView!.image = response.result.value
+                cell.productImageView!.image = response.result.value
+                
+                cell.productImageView.contentMode = UIViewContentMode.scaleAspectFit
+                self.productImageViewWidthConstraint.constant = cell.frame.size.width * 0.35
+                //cell.layoutSubviews()
                 cell.setNeedsLayout()
+                cell.updateConstraints()
             }
         }
         
