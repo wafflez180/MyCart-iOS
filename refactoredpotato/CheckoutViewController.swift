@@ -109,7 +109,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         saySomething(message: "Good afternoon, welcome to my shop. Please scan your items.")
         
         // TEST check an item
-        checkProduct(barcode: "0078742040370")
+        checkProduct(barcode: "0078742040370_FUCK")
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -206,6 +206,12 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             {
                 case .success(let responseData):
                     let json = JSON(responseData);
+
+                    if let error = json["error"].string
+                    {
+                        print("ERROR: \(error)")
+                        return
+                    }
 
                     if let newProduct : Product = Product(json: json)
                     {

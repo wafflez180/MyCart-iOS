@@ -10,4 +10,5 @@ target 'refactoredpotato' do
    :git => ‘https://github.com/SwiftyJSON/SwiftyJSON.git'
   pod 'Alamofire',
    :git => 'https://github.com/Alamofire/Alamofire.git'
+  pod 'AlamofireImage', '~> 3.1'
 end
