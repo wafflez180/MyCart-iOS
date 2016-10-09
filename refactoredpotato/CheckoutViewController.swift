@@ -110,6 +110,13 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         
         // TEST check an item
         checkProduct(barcode: "0078742040370_FUCK")
+        
+        //Test Product
+        let testProduct = Product(barcode: "234", name: "bullshit", brand: "test", price: 1.00)
+        productsInCart+=[testProduct!]
+        DispatchQueue.main.async{
+            self.productsTableView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -301,9 +308,15 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         return productsInCart.count
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "product", for: indexPath) as! ProductTableViewCell
         cell.setLabels(newProduct: productsInCart[indexPath.row])
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.layer.cornerRadius = 100
         
         return cell
     }

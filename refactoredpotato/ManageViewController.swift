@@ -93,7 +93,8 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.main.bounds.size.height * 0.20
+        
+        return UIScreen.main.bounds.size.height * 0.25
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -101,14 +102,25 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return productsInStock.count
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "manageProductCell", for: indexPath) as! ManageProductTableViewCell
         cell.setLabels(newProduct: productsInStock[indexPath.row])
-        
+        cell.layer.cornerRadius = 20
+        tableView.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.96, alpha:1.0)
+
         if indexPath.row == 0
         {
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
         }
+        
+        var newFrame = cell.contentView.frame as CGRect
+        newFrame.size.height = UIScreen.main.bounds.size.height * 0.10
+        newFrame.origin.y = (newFrame.size.height - UIScreen.main.bounds.size.height * 0.25)/2
+        cell.contentView.frame = newFrame
         
         return cell
     }
@@ -122,6 +134,16 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.layer.cornerRadius = 0
         
         print(cell.nameLabel.text)
+        
+        //mainProductQuantityLabel: UILabel!
+        //@IBOutlet weak var mainProductBrandLabel: UILabel!
+        //@IBOutlet weak var mainProductImageView: UIImageView!
+        //@IBOutlet weak var mainProductNameLabel:
+        
+        //mainProductQuantityLabel.text = pro
+        mainProductBrandLabel.text = cell.brandLabel.text
+        mainProductImageView.image = cell.productImageView.image
+        mainProductNameLabel.text = cell.nameLabel.text
     }
     
     // if tableView is set in attribute inspector with selection to multiple Selection it should work.

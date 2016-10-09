@@ -32,7 +32,13 @@ class ManageProductTableViewCell: UITableViewCell {
         
         nameLabel.text = product?.name!
         brandLabel.text = "By \(product!.brand!)"
+        
+        var newFrame1 = nameLabel.frame as CGRect
+        newFrame1.size.height = frame.size.height/2
+        nameLabel.frame = newFrame1
+        
+        var newFrame2 = brandLabel.frame as CGRect
+        newFrame2.size.height = frame.size.height/2
+        brandLabel.frame = newFrame2
     }
-
-
 }
