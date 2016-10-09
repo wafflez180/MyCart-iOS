@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import AVFoundation
 
 class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
@@ -26,6 +27,8 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var productsInStock = [Product]()
     
+    var audioPlayer : AVAudioPlayer?
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -42,6 +45,23 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func retrieveProducts()
     {
+        let parameters : Parameters = ["text" : "Welcome to my shop. Please scan your items.", "voice" : "Don Happy"]
+        let headers: HTTPHeaders = [
+        "apikey": "5a34fd9150ad4c3d9f75efce01aa493f",
+        "Content-Type": "application/json"
+        ]
+
+        Alamofire.request(Constants.API.CALL_GET_VOICE, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+        .responseData()
+        {
+            response in
+            
+            self.audioPlayer = try! AVAudioPlayer(data: response.data!, fileTypeHint: AVFileTypeWAVE)
+            self.audioPlayer?.prepareToPlay()
+            self.audioPlayer?.volume = 0.5
+            self.audioPlayer?.play()
+        }
+    
         Alamofire.request(Constants.API.ADDRESS + Constants.API.CALL_GET_PRODUCTS)
         .responseJSON()
         {
