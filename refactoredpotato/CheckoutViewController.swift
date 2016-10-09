@@ -110,7 +110,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         session.startRunning()
         
         // Greet the customer
-        //saySomething(message: "Good afternoon, welcome to my shop. Please scan your items.")
+        saySomething(message: "Good afternoon, welcome to my shop. Please scan your items.")
         
         // TEST check an item
         //checkProduct(barcode: "0078742040370_FUCK")
@@ -260,7 +260,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             increaseProductQuantity(scannedProduct: newProduct)
         }else
         {
-            //saySomething(message: newProduct.name!)
+            saySomething(message: newProduct.name!)
             productsInCart+=[newProduct]
         }
         DispatchQueue.main.async{
