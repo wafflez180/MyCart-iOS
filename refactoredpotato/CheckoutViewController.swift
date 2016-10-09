@@ -109,7 +109,16 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         saySomething(message: "Good afternoon, welcome to my shop. Please scan your items.")
         
         // TEST check an item
-        checkProduct(barcode: "0078742040370_FUCK")
+        //checkProduct(barcode: "0078742040370_FUCK")
+        
+        //Test Product
+        /*
+        let testProduct = Product(barcode: "234", name: "bullshit", brand: "test", price: 1.00)
+        productsInCart+=[testProduct!]
+        DispatchQueue.main.async{
+            self.productsTableView.reloadData()
+        }
+        */
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -159,9 +168,6 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                 barcodeDetected(code: readableCode.stringValue);
             }
             
-            // Vibrate the device to give the user some feedback.
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            
             // Avoid a very buzzy device.
             //Removed
             //session.stopRunning()
@@ -198,7 +204,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         .responseJSON()
         {
             response in
-            debugPrint(response)
+            //debugPrint(response)
             
             self.isCheckingProduct = false
             
@@ -216,6 +222,9 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                     if let newProduct : Product = Product(json: json)
                     {
                         AudioServicesPlaySystemSound(1206)
+                        
+                        // Vibrate the device to give the user some feedback.
+                        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
                         
                         self.addProductToCart(newProduct: newProduct)
                         
@@ -283,10 +292,20 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         {
             response in
             
-            self.audioPlayer = try! AVAudioPlayer(data: response.data!, fileTypeHint: AVFileTypeWAVE)
-            self.audioPlayer?.prepareToPlay()
-            self.audioPlayer?.volume = 0.5
-            self.audioPlayer?.play()
+            switch response.result
+            {
+                case .success(let responseData):
+                    self.audioPlayer = try? AVAudioPlayer(data: responseData, fileTypeHint: AVFileTypeWAVE)
+                    self.audioPlayer?.prepareToPlay()
+                    self.audioPlayer?.volume = 0.5
+                    self.audioPlayer?.play()
+                    
+                    return
+                
+                case .failure(let error):
+                    print("Request failed with error: \(error)")
+                    return
+            }
         }
     }
     
@@ -301,9 +320,29 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         return productsInCart.count
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "product", for: indexPath) as! ProductTableViewCell
-        cell.setLabels(newProduct: productsInCart[indexPath.row])
+        let product = productsInCart[indexPath.row]
+        cell.setLabels(newProduct: product)
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        cell.layer.cornerRadius = 100
+        
+        // Download the image
+        Alamofire.request(product.imageUrl!).responseImage
+        {
+            response in
+            
+            if let image = response.result.value
+            {
+                print("image downloaded: \(image)")
+                cell.imageView!.image = response.result.value
+                cell.setNeedsLayout()
+            }
+        }
         
         return cell
     }
