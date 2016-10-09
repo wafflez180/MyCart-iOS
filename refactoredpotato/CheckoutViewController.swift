@@ -218,7 +218,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             response in
             //debugPrint(response)
             
-            self.isCheckingProduct = false
+            let timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.resetIsCheckingProduct), userInfo: nil, repeats: false);
             
             switch response.result
             {
@@ -269,6 +269,11 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         updateSubtotal()
     }
     
+    func resetIsCheckingProduct()
+    {
+        isCheckingProduct = false
+    }
+    
     func updateSubtotal(){
         if productsInCart.count > 0
         {
@@ -310,7 +315,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             }
         }
     }
-    /*
+    
     func saySomething(message: String)
     {
         let parameters : Parameters = ["text" : message, "voice" : "Dawn Happy"]
@@ -339,7 +344,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                     return
             }
         }
-    }*/
+    }
     
     // MARK: TableView Delegate
     
