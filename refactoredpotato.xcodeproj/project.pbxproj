@@ -17,6 +17,7 @@
 		14C713A71DA9A9120004A234 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C713A61DA9A9120004A234 /* Product.swift */; };
 		6490021CC4A8E0197473C0AC /* Pods_refactoredpotato.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD6E5B7C82D54D497769229 /* Pods_refactoredpotato.framework */; };
 		CA3F90A61DA993A7002FF1A1 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3F90A51DA993A7002FF1A1 /* ProductTableViewCell.swift */; };
+		CAAD8EA61DAA0F6A008DFB94 /* ManageProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD8EA51DAA0F6A008DFB94 /* ManageProductTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		944C34127DBA67975C25D078 /* Pods-refactoredpotato.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-refactoredpotato.debug.xcconfig"; path = "Pods/Target Support Files/Pods-refactoredpotato/Pods-refactoredpotato.debug.xcconfig"; sourceTree = "<group>"; };
 		C7999C6E29ABC8F617D4EFD3 /* Pods-refactoredpotato.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-refactoredpotato.release.xcconfig"; path = "Pods/Target Support Files/Pods-refactoredpotato/Pods-refactoredpotato.release.xcconfig"; sourceTree = "<group>"; };
 		CA3F90A51DA993A7002FF1A1 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
+		CAAD8EA51DAA0F6A008DFB94 /* ManageProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageProductTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				14A3D0FD1DA9618C00F87150 /* CheckoutViewController.swift */,
-				14A3D0FF1DA98E5A00F87150 /* ManageViewController.swift */,
 				CA3F90A51DA993A7002FF1A1 /* ProductTableViewCell.swift */,
+				14A3D0FF1DA98E5A00F87150 /* ManageViewController.swift */,
+				CAAD8EA51DAA0F6A008DFB94 /* ManageProductTableViewCell.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				14A3D0FE1DA9618C00F87150 /* CheckoutViewController.swift in Sources */,
 				CA3F90A61DA993A7002FF1A1 /* ProductTableViewCell.swift in Sources */,
 				14235DBD1DA94229001A3681 /* AppDelegate.swift in Sources */,
+				CAAD8EA61DAA0F6A008DFB94 /* ManageProductTableViewCell.swift in Sources */,
 				14A3D1001DA98E5A00F87150 /* ManageViewController.swift in Sources */,
 				14C713A71DA9A9120004A234 /* Product.swift in Sources */,
 			);

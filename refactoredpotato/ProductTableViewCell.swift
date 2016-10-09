@@ -49,10 +49,16 @@ class ProductTableViewCell: UITableViewCell {
     }
     
     func decreaseQuantity(){
-        product!.quantity!-=1
-        quantityLabel.text = "\(product!.quantity!) x "
-        let price = (product?.price!)! * Float((product!.quantity!))
-        priceLabel.text = "$" + String(format: "%.2f", price)
+        if product!.quantity! > 1
+        {
+            product!.quantity!-=1
+            quantityLabel.text = "\(product!.quantity!) x "
+            let price = (product?.price!)! * Float((product!.quantity!))
+            priceLabel.text = "$" + String(format: "%.2f", price)
+        }else
+        {
+            //Give alert "Are you sure?" and then delete product
+        }
     }
     
     // MARK: Actions

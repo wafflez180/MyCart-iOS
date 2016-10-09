@@ -183,7 +183,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         .responseJSON()
         {
             response in
-            
+            debugPrint(response)
             switch response.result
             {
                 case .success(let responseData):
