@@ -32,8 +32,6 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         
         productsTableView.dataSource = self
         productsTableView.delegate = self
-    
-        tableViewWidthConstraint.constant = UIScreen.main.bounds.size.width * 0.60
         
         // Create a session object.
         session = AVCaptureSession()
@@ -379,7 +377,6 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             {
                 print("image downloaded: \(image)")
                 cell.productImageView!.image = response.result.value
-                
                 //cell.productImageView.contentMode = UIViewContentMode.scaleAspectFit
                 //self.productImageViewWidthConstraint.constant = cell.frame.size.width * 0.35
                 //cell.layoutSubviews()
