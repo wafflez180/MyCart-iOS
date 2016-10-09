@@ -162,7 +162,7 @@
 				TargetAttributes = {
 					14235DB81DA94229001A3681 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 5ZFL9VGX97;
+						DevelopmentTeam = 72H7NZKH7W;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -384,11 +384,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5ZFL9VGX97;
+				DEVELOPMENT_TEAM = 72H7NZKH7W;
 				INFOPLIST_FILE = refactoredpotato/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.refactoredpotato;
+				PRODUCT_BUNDLE_IDENTIFIER = com.upstatehacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -401,11 +401,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5ZFL9VGX97;
+				DEVELOPMENT_TEAM = 72H7NZKH7W;
 				INFOPLIST_FILE = refactoredpotato/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.refactoredpotato;
+				PRODUCT_BUNDLE_IDENTIFIER = com.upstatehacks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

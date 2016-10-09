@@ -16,6 +16,8 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     
     // MARK: Properties
     
+    @IBOutlet weak var tableViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subtotalLabel: UILabel!
     @IBOutlet weak var productsTableView: UITableView!
     @IBOutlet weak var previewImageView: UIImageView!
     var session: AVCaptureSession!
@@ -31,6 +33,8 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         productsTableView.dataSource = self
         productsTableView.delegate = self
     
+        tableViewWidthConstraint.constant = UIScreen.main.bounds.size.width * 0.60
+        
         // Create a session object.
         session = AVCaptureSession()
         
@@ -106,7 +110,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         session.startRunning()
         
         // Greet the customer
-        saySomething(message: "Good afternoon, welcome to my shop. Please scan your items.")
+        //saySomething(message: "Good afternoon, welcome to my shop. Please scan your items.")
         
         // TEST check an item
         //checkProduct(barcode: "0078742040370_FUCK")
@@ -119,6 +123,14 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             self.productsTableView.reloadData()
         }
         */
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(changedProductQuantity),
+            name: NSNotification.Name(rawValue: "ChangedQuantity"),
+            object: nil)
+
+        
+        updateSubtotal()
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -248,12 +260,32 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             increaseProductQuantity(scannedProduct: newProduct)
         }else
         {
-            saySomething(message: newProduct.name!)
+            //saySomething(message: newProduct.name!)
             productsInCart+=[newProduct]
         }
         DispatchQueue.main.async{
             self.productsTableView.reloadData()
         }
+        updateSubtotal()
+    }
+    
+    func updateSubtotal(){
+        if productsInCart.count > 0
+        {
+            var subtotal = 0.0 as Float
+            for product in productsInCart
+            {
+                subtotal+=(product.price! * Float(product.quantity!))
+            }
+            let tempSubtotal = String(format: "%.2f", subtotal)
+            subtotalLabel.text = "Subtotal (\(productsInCart.count) items): $\(tempSubtotal)"
+        }else{
+            subtotalLabel.text = "Subtotal (0 items): $0.00"
+        }
+    }
+    
+    @objc func changedProductQuantity(notification: NSNotification){
+        updateSubtotal()
     }
     
     func productIsInCart(scannedProduct: Product) -> Bool
@@ -278,7 +310,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
             }
         }
     }
-    
+    /*
     func saySomething(message: String)
     {
         let parameters : Parameters = ["text" : message, "voice" : "Dawn Happy"]
@@ -307,7 +339,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                     return
             }
         }
-    }
+    }*/
     
     // MARK: TableView Delegate
     
@@ -321,7 +353,7 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
+        return 15
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -329,7 +361,9 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         let product = productsInCart[indexPath.row]
         cell.setLabels(newProduct: product)
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        cell.layer.cornerRadius = 100
+        cell.layer.cornerRadius = 25
+        
+        tableView.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.96, alpha:1.0)
         
         // Download the image
         Alamofire.request(product.imageUrl!).responseImage
@@ -346,14 +380,13 @@ class CheckoutViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         
         return cell
     }
-    
+
     // MARK: Actions
     
     @IBAction func onManageButtonClick(_ sender: UIButton)
     {
         self.performSegue(withIdentifier: "manageSegue", sender: self)
     }
-
     /*
     // MARK: - Navigation
 
