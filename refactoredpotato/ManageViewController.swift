@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 import AVFoundation
 
@@ -26,6 +27,8 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var mainProductNameLabel: UILabel!
     
     var productsInStock = [Product]()
+    
+    let downloader = ImageDownloader()
     
     override func viewDidLoad()
     {
@@ -104,6 +107,24 @@ class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "manageProductCell", for: indexPath) as! ManageProductTableViewCell
         cell.setLabels(newProduct: productsInStock[indexPath.row])
+        
+        // Download the image
+        cell.imageView?.af_setImage(withURL: URL(string: "http://i.imgur.com/fFJKrlQ.png")!)
+        
+        /*
+        let urlRequest = URLRequest(url: URL(string: "http://i.imgur.com/fFJKrlQ.png")!)
+
+        downloader.download(urlRequest)
+        {
+            response in
+            debugPrint(response.result)
+
+            if let image = response.result.value
+            {
+                cell.imageView?.af_setImage(withURL: URL(string: "http://i.imgur.com/fFJKrlQ.png")
+            }
+        }
+        */
         
         if indexPath.row == 0
         {
