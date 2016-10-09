@@ -12,6 +12,8 @@ class ManageProductTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var brandLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
+    
+    var product : Product?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,5 +25,14 @@ class ManageProductTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func setLabels(newProduct: Product)
+    {
+        product = newProduct
+        
+        nameLabel.text = product?.name!
+        brandLabel.text = "By \(product!.brand!)"
+    }
+
 
 }

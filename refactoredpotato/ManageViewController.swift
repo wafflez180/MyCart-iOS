@@ -10,9 +10,9 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class ManageViewController: UIViewController
+class ManageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
-    @IBOutlet weak var mainAnalyticsHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var productsTableView: UITableView!
     @IBOutlet weak var mainTopInfoBarHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainProductAnalyticWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var averageAgeLabel: UILabel!
@@ -22,15 +22,17 @@ class ManageViewController: UIViewController
     @IBOutlet weak var mainProductQuantityLabel: UILabel!
     @IBOutlet weak var mainProductBrandLabel: UILabel!
     @IBOutlet weak var mainProductImageView: UIImageView!
-
     @IBOutlet weak var mainProductNameLabel: UILabel!
+    
+    var productsInStock = [Product]()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         mainProductAnalyticWidthConstraint.constant = UIScreen.main.bounds.size.width * 0.70
-        mainTopInfoBarHeightConstraint.constant = UIScreen.main.bounds.size.height * 0.25
-        mainAnalyticsHeightConstraint.constant = UIScreen.main.bounds.size.height * 0.60
+        mainTopInfoBarHeightConstraint.constant = UIScreen.main.bounds.size.height * 0.30
         retrieveProducts()
+        
     }
 
     override func didReceiveMemoryWarning()
@@ -56,6 +58,7 @@ class ManageViewController: UIViewController
                         if let newProduct : Product = Product(json: subJSON)
                         {
                             print("Got product: \(newProduct.name!)")
+                            self.productsInStock+=[newProduct]
                         }
                     }
                     
@@ -67,7 +70,25 @@ class ManageViewController: UIViewController
             }
         }
     }
-
+    
+    // MARK: TableView Delegate
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return productsInStock.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "product", for: indexPath) as! ManageProductTableViewCell
+        cell.setLabels(newProduct: productsInStock[indexPath.row])
+        
+        return cell
+    }
+    
     /*
     // MARK: - Navigation
 
