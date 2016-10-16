@@ -12,7 +12,7 @@ class Constants
 {
     class API
     {
-        static let ADDRESS = "http://192.81.208.46/"
+        static let ADDRESS = "http://mycart.dooskington.com/api/v1/"
         static let CALL_GET_PRODUCTS = "products"
         static let CALL_GET_PRODUCT = "products/"
         
