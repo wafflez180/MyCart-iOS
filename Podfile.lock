@@ -17,10 +17,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Alamofire:
-    :commit: e36c305d843c5034204fa831a77909d363253410
+    :commit: c71f503898cb24d56857e4e6f0ec7899a9b6fc7b
     :git: https://github.com/Alamofire/Alamofire.git
   SwiftyJSON:
-    :commit: 5a5928b5a021e140409e8bd20244d41dbba6c52d
+    :commit: 6a0c3a82e2b4a07723b4958146315c7928220189
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
