@@ -12,7 +12,7 @@ class Constants
 {
     class API
     {
-        static let ADDRESS = "http://mycart.dooskington.com/api/v1/"
+        static let ADDRESS = "REMOVED ADDRESS TO PROTECT OWNER'S SERVER June 22, 2017 - Arthur"
         static let CALL_GET_PRODUCTS = "products"
         static let CALL_GET_PRODUCT = "products/"
         
@@ -20,7 +20,7 @@ class Constants
         
         static let FACE_ADDRESS = "apius.faceplusplus.com"
         static let CALL_CHECK_FACE = "/detection/detect"
-        static let FACE_API_KEY = "8c5a0758ca6c6184d0da52bd602638af"
-        static let FACE_API_SECRET = "mwIjWjZPE04Oikl9r_xR_P8FLVvhkFuo"
+        static let FACE_API_KEY = "REMOVED June 22, 2017"
+        static let FACE_API_SECRET = "REMOVED June 22, 2017"
     }
 }
